@@ -72,11 +72,15 @@ services:
     name: redis
     plan: starter
 
-  - type: postgres
+  - type: pserv
     name: postgres
+    env: postgres
     plan: starter
     envVars:
       - key: POSTGRES_DB
         value: your-db-name
       - key: POSTGRES_USER
         value: your-db-user
+      - key: POSTGRES_PASSWORD
+        value: your-db-password
+
