@@ -1,30 +1,23 @@
 services:
   - type: web
-    name: dlchub
+    name: dlchub-web
     runtime: docker
+    plan: starter
+    repo: https://github.com/shermeln/pichlub
+    branch: main
+    rootDir: web
     buildCommand: "./vendor/bin/sail build"
     startCommand: "./vendor/bin/sail up"
+    autoDeploy: true
     envVars:
       - key: APP_ENV
         value: production
       - key: APP_KEY
-        value: base64:5km3sDK7xBaspRT0P4oWnQ0XEywN8eBdK0XOC=
+        value: base64:your-app-key
       - key: APP_DEBUG
-        value: true
+        value: false
       - key: APP_URL
-        value: https://dlchub-opt2.ondigitalocean.app
-      - key: DB_CONNECTION
-        value: mysql
-      - key: DB_HOST
-        value: db-mysql-nyc3-24675332-do-user-24765332-0.db.ondigitalocean.com
-      - key: DB_PORT
-        value: 25060
-      - key: DB_DATABASE
-        value: defaultdb
-      - key: DB_USERNAME
-        value: doadmin
-      - key: DB_PASSWORD
-        value: AVNS_WO0A9eCTVMFKzAtvy_s
+        value: https://your-app-url
       - key: BROADCAST_DRIVER
         value: pusher
       - key: PUSHER_APP_ID
@@ -35,10 +28,6 @@ services:
         value: 4e13a31949c75671b2a7
       - key: PUSHER_APP_CLUSTER
         value: ap1
-      - key: PUSHER_PORT
-        value: 443
-      - key: PUSHER_SCHEME
-        value: https
       - key: VITE_PUSHER_APP_KEY
         value: 20e244587fcb3abb6850
       - key: VITE_PUSHER_APP_CLUSTER
@@ -49,3 +38,45 @@ services:
         value: 443
       - key: VITE_PUSHER_SCHEME
         value: https
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromService: postgres
+      - key: DB_PORT
+        value: 5432
+      - key: DB_DATABASE
+        value: your-db-name
+      - key: DB_USERNAME
+        value: your-db-user
+      - key: DB_PASSWORD
+        fromService: postgres
+      - key: REDIS_HOST
+        fromService: redis
+      - key: QUEUE_CONNECTION
+        value: database
+
+  - type: worker
+    name: dlchub-worker
+    runtime: docker
+    plan: starter
+    repo: https://github.com/shermeln/pichlub
+    branch: main
+    rootDir: worker
+    buildCommand: "./vendor/bin/sail build"
+    startCommand: "php artisan queue:work"
+    autoDeploy: true
+    envVarsFromService:
+      - name: dlchub-web
+
+  - type: redis
+    name: redis
+    plan: starter
+
+  - type: postgres
+    name: postgres
+    plan: starter
+    envVars:
+      - key: POSTGRES_DB
+        value: your-db-name
+      - key: POSTGRES_USER
+        value: your-db-user
