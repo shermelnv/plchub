@@ -2,12 +2,12 @@ services:
   - type: web
     name: dlchub-web
     runtime: docker
-    plan: starter
     repo: https://github.com/shermeln/pichlub
     branch: main
-    rootDir: web
+    rootDir: .
     buildCommand: "./vendor/bin/sail build"
     startCommand: "./vendor/bin/sail up"
+    plan: starter
     autoDeploy: true
     envVars:
       - key: APP_ENV
@@ -58,18 +58,19 @@ services:
   - type: worker
     name: dlchub-worker
     runtime: docker
-    plan: starter
     repo: https://github.com/shermeln/pichlub
     branch: main
-    rootDir: worker
+    rootDir: .
     buildCommand: "./vendor/bin/sail build"
     startCommand: "php artisan queue:work"
+    plan: starter
     autoDeploy: true
     envVarsFromService:
       - name: dlchub-web
 
-  - type: redis
+  - type: pserv
     name: redis
+    env: redis
     plan: starter
 
   - type: pserv
@@ -83,4 +84,3 @@ services:
         value: your-db-user
       - key: POSTGRES_PASSWORD
         value: your-db-password
-
