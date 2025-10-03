@@ -53,5 +53,3 @@ services:
     rootDir: .
     plan: starter
     autoDeploy: true
-    envVarsFromService:
-      - name: dlchub-web
