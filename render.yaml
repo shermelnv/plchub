@@ -19,4 +19,33 @@ services:
         value: db-mysql-nyc3-24675332-do-user-24765332-0.db.ondigitalocean.com
       - key: DB_PORT
         value: 25060
-      # Add other envVars as needed
+      - key: DB_DATABASE
+        value: defaultdb
+      - key: DB_USERNAME
+        value: doadmin
+      - key: DB_PASSWORD
+        value: AVNS_WO0A9eCTVMFKzAtvy_s
+      - key: BROADCAST_DRIVER
+        value: pusher
+      - key: PUSHER_APP_ID
+        value: 2050118
+      - key: PUSHER_APP_KEY
+        value: 20e244587fcb3abb6850
+      - key: PUSHER_APP_SECRET
+        value: 4e13a31949c75671b2a7
+      - key: PUSHER_APP_CLUSTER
+        value: ap1
+      - key: PUSHER_PORT
+        value: 443
+      - key: PUSHER_SCHEME
+        value: https
+      - key: VITE_PUSHER_APP_KEY
+        value: 20e244587fcb3abb6850
+      - key: VITE_PUSHER_APP_CLUSTER
+        value: ap1
+      - key: VITE_PUSHER_HOST
+        value: api.pusherapp.com
+      - key: VITE_PUSHER_PORT
+        value: 443
+      - key: VITE_PUSHER_SCHEME
+        value: https
