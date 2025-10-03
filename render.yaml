@@ -1,0 +1,51 @@
+services:
+  - type: web
+    name: dlchub
+    env: php
+    buildCommand: "./vendor/bin/sail build"
+    startCommand: "./vendor/bin/sail up"
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        value: base64:iSWm+DbKK7BaspRTOP46wVWnQON0tyN8XBweidQkxoc=
+      - key: APP_DEBUG
+        value: true
+      - key: APP_URL
+        value: https://plchub-oitg2.ondigitalocean.app
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: plchubdb-do-user-24763532-0.j.db.ondigitalocean.com
+      - key: DB_PORT
+        value: 25060
+      - key: DB_DATABASE
+        value: defaultdb
+      - key: DB_USERNAME
+        value: doadmin
+      - key: DB_PASSWORD
+        value: AVNS_WO0A9eCTVMFKzAtvy_s
+      - key: BROADCAST_DRIVER
+        value: pusher
+      - key: PUSHER_APP_ID
+        value: 2050118
+      - key: PUSHER_APP_KEY
+        value: 20e244587fcb3abb6850
+      - key: PUSHER_APP_SECRET
+        value: 4e13a31949c75671b2a7
+      - key: PUSHER_APP_CLUSTER
+        value: ap1
+      - key: PUSHER_PORT
+        value: 443
+      - key: PUSHER_SCHEME
+        value: https
+      - key: VITE_PUSHER_APP_KEY
+        value: 20e244587fcb3abb6850
+      - key: VITE_PUSHER_APP_CLUSTER
+        value: ap1
+      - key: VITE_PUSHER_HOST
+        value: api.pusherapp.com
+      - key: VITE_PUSHER_PORT
+        value: 443
+      - key: VITE_PUSHER_SCHEME
+        value: https
