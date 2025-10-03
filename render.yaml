@@ -18,6 +18,8 @@ services:
         value: false
       - key: APP_URL
         value: https://your-app-url
+      - key: LOG_CHANNEL
+        value: stack
       - key: BROADCAST_DRIVER
         value: pusher
       - key: PUSHER_APP_ID
@@ -38,21 +40,13 @@ services:
         value: 443
       - key: VITE_PUSHER_SCHEME
         value: https
-      - key: DB_CONNECTION
-        value: pgsql
-      - key: DB_HOST
-        fromService: postgres
-      - key: DB_PORT
-        value: 5432
-      - key: DB_DATABASE
-        value: your-db-name
-      - key: DB_USERNAME
-        value: your-db-user
-      - key: DB_PASSWORD
-        fromService: postgres
       - key: REDIS_HOST
         fromService: redis
       - key: QUEUE_CONNECTION
+        value: database
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_STORE
         value: database
 
   - type: worker
@@ -62,7 +56,7 @@ services:
     branch: main
     rootDir: .
     buildCommand: "./vendor/bin/sail build"
-    startCommand: "php artisan queue:work"
+    startCommand: "php artisan queue:work --tries=3"
     plan: starter
     autoDeploy: true
     envVarsFromService:
@@ -72,15 +66,3 @@ services:
     name: redis
     env: redis
     plan: starter
-
-  - type: pserv
-    name: postgres
-    env: postgres
-    plan: starter
-    envVars:
-      - key: POSTGRES_DB
-        value: your-db-name
-      - key: POSTGRES_USER
-        value: your-db-user
-      - key: POSTGRES_PASSWORD
-        value: your-db-password
