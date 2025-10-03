@@ -6,7 +6,6 @@ services:
     branch: main
     rootDir: .
     buildCommand: "./vendor/bin/sail build"
-    startCommand: "./vendor/bin/sail up"
     plan: starter
     autoDeploy: true
     envVars:
@@ -54,6 +53,7 @@ services:
     branch: main
     rootDir: .
     buildCommand: "./vendor/bin/sail build"
-    startCommand: "php artisan queue:work --tries=3"
     plan: starter
     autoDeploy: true
+    envVarsFromService:
+      - name: dlchub-web
