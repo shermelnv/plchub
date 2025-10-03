@@ -40,14 +40,12 @@ services:
         value: 443
       - key: VITE_PUSHER_SCHEME
         value: https
-      - key: REDIS_HOST
-        fromService: redis
       - key: QUEUE_CONNECTION
         value: database
       - key: SESSION_DRIVER
-        value: database
+        value: file
       - key: CACHE_STORE
-        value: database
+        value: file
 
   - type: worker
     name: dlchub-worker
@@ -61,8 +59,3 @@ services:
     autoDeploy: true
     envVarsFromService:
       - name: dlchub-web
-
-  - type: pserv
-    name: redis
-    env: redis
-    plan: starter
