@@ -57,5 +57,3 @@ services:
     startCommand: "php artisan queue:work --tries=3"
     plan: starter
     autoDeploy: true
-    envVarsFromService:
-      - name: dlchub-web
